@@ -57,7 +57,5 @@ while 1:
 					print("Invalid Barcode. Please try again.")
 					break
 
-			
-
 # Close socket
 UDPSock.close()

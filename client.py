@@ -1,6 +1,10 @@
 # Client program
-
+import subprocess
+import atexit
+import sys
 from socket import *
+
+#p = subprocess.Popen("python" + " server.py &", shell=True)
 
 # Set the socket parameters
 host = "localhost"
@@ -14,14 +18,12 @@ UDPSock = socket(AF_INET,SOCK_DGRAM)
 def_msg = "===Enter message to send to server===";
 print "\n",def_msg
 
-# Send messages
-while (1):
-	data = raw_input('Enter Barcode: ')
-	if not data:
-		break
-	else:
-		if(UDPSock.sendto(data,addr)):
-			print "Sending Barcode: '",data,"'..."
-
-# Close socket
-UDPSock.close()
+try:
+	while True:
+		barcode = raw_input("Enter Barcode: ")
+		if barcode:
+			print "Sending Barcode: '",barcode,"'..."
+			UDPSock.sendto(barcode, addr)
+except KeyboardInterrupt:
+	#Shutdown
+	UDPSock.close()
