@@ -1,5 +1,6 @@
 import csv
 import sqlite3
+import os
 
 db = sqlite3.connect(':memory:')
 
@@ -18,5 +19,9 @@ def populate_db(cur, csv_fp):
 
 cur = db.cursor()
 init_db(cur)
-populate_db(cur, open('items.csv','rU'))
+
+dir = os.path.dirname(__file__)
+filename = os.path.join(dir, 'items.csv')
+
+populate_db(cur, open(filename,'rU'))
 db.commit()
